@@ -1,0 +1,15 @@
+POST http://localhost:5000/api/add
+Content-Type: application/json
+
+{
+    "_id": "64829eb37190b4ddfecc48eb",
+    "name": "new-deck",
+    "cards": [
+        {
+            "question": "How much",
+            "answer": "50",
+            "tries": [0, 0, 0],
+            "lastTry": "2023-06-08T21:15:20-06:00"
+        }
+    ]
+}
