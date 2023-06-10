@@ -1,18 +1,28 @@
 const User = require('../models/userModel.js')
 const passport = require('passport')
+const bcrypt = require('bcrypt')
+
 module.exports = {
     createUser: async (req, res) => {
         try {
             const { email, password } = req.body
-            const newUser = new User({ email, password })
+            console.log(email, password)
+            const salt = 10
+            const hashedPassword = await bcrypt.hash(password, salt)
+            const newUser = new User({ email: email, password: hashedPassword })
             const existingUser = await User.findOne({ email })
             if (existingUser){
                 return res.status(400).json({error: 'User already Exists'})
             }
             await newUser.save()
-            res.status(201).json({ message: `New user created under ${email}`, user: newUser})
-        } catch (error) {
-            res.status(500).json({ error: 'Internal server error'})
+            req.logIn(newUser, (err) => {
+              if (err) {
+                return res.status(500).json({ error: 'Failed to log in' });
+              }
+              res.status(201).json({ message: `New user created under ${email}`, user: newUser });
+            });
+          } catch (error) {
+            res.status(500).json({ error: 'Internal server error' });
         }
     },
     addDeck: async (req, res) => {
@@ -64,5 +74,13 @@ module.exports = {
             res.setHeader('Cache-Control', 'no-store')
             res.redirect(303, '/')
         })
+      },
+      getAuthenticated: (req, res) => {
+        if (req.user){
+          const authenticatedUser = req.user
+          return res.status(200).json({ message: 'User is authenticated', user: authenticatedUser})
+        } else {
+          return res.status(401).json({ message: 'Unauthorized' })
+        }
       },
 }

@@ -1,7 +1,7 @@
 const express = require ('express')
 const router = express.Router()
 const userController = require('../controllers/user.js')
-const passport = require('passport')
+
 // POST /register
 router.post('/register', userController.createUser)
 
@@ -13,6 +13,9 @@ router.get('/logout', userController.logout)
 
 // Post /add
 router.post('/add', userController.addDeck)
+
+// post /getauth
+router.post('/getauth', userController.getAuthenticated)
 
 router.all('*', async (req, res) => {
     try {

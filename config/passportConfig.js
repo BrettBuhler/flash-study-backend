@@ -1,6 +1,7 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const User = require('../models/userModel.js')
+const bcrypt = require('bcrypt')
 
 passport.use(
     new LocalStrategy(
@@ -14,7 +15,7 @@ passport.use(
             if (!user){
                 return done(null, false, { message: 'Invalid email or password' })
             }
-            const isMatch = password === user.password
+            const isMatch = await bcrypt.compare(password, user.password)
             if (!isMatch){
                 return done(null, false, { message: 'Invalid email or password' })
             } else {
