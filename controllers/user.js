@@ -10,7 +10,7 @@ module.exports = {
                 return res.status(400).json({error: 'User already Exists'})
             }
             await newUser.save()
-            res.status(201).json(newUser)
+            res.status(201).json({ message: `New user created under ${email}`, user: newUser})
         } catch (error) {
             res.status(500).json({ error: 'Internal server error'})
         }
