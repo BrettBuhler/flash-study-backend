@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "_id": "64829eb37190b4ddfecc48eb",
-    "name": "new-deck",
+    "name": "new-deck1",
     "cards": [
         {
             "question": "How much",

@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e65883a2.css",
+    "main.js": "/static/js/main.a31733ff.js",
+    "static/media/flash-card.png": "/static/media/flash-card.4beb05f8ef74c7070b67.png",
+    "static/media/book.jpg": "/static/media/book.9f654b628fe0fa04c6c9.jpg",
+    "static/media/waves-6733156_1280.png": "/static/media/waves-6733156_1280.c821b751dd1dcb62e782.png",
+    "index.html": "/index.html",
+    "main.e65883a2.css.map": "/static/css/main.e65883a2.css.map",
+    "main.a31733ff.js.map": "/static/js/main.a31733ff.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e65883a2.css",
+    "static/js/main.a31733ff.js"
+  ]
+}

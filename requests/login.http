@@ -2,5 +2,6 @@ POST http://localhost:5000/api/login
 Content-Type: application/json
 
 {
-    
+    "email": "brettbuhler@yahoo.com",
+    "password": "goodpassword123"
 }
