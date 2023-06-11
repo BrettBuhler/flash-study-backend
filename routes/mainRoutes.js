@@ -26,4 +26,36 @@ router.get('/signup', (req, res) => {
     res.sendFile(path.join(__dirname, '../build', 'index.html'))
 })
 
+router.get('/add-deck', ensureAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, '../build', 'index.html'))
+})
+
+router.get('/add-deck/manual', ensureAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, '../build', 'index.html'))
+})
+
+router.get('/add-deck/ai', ensureAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, '../build', 'index.html'))
+})
+
+router.get('/add-deck/text', ensureAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, '../build', 'index.html'))
+})
+
+router.get('/edit-deck', ensureAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, '../build', 'index.html'))
+})
+
+router.get('/edit-deck/add/manual', ensureAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, '../build', 'index.html'))
+})
+
+router.get('/edit-deck/add/ai', ensureAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, '../build', 'index.html'))
+})
+
+router.get('/edit-deck/add/text', ensureAuth, (req, res) => {
+    res.sendFile(path.join(__dirname, '../build', 'index.html'))
+})
+
 module.exports = router
