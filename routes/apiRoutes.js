@@ -4,18 +4,18 @@ const userController = require('../controllers/user.js')
 
 // POST /register
 router.post('/register', userController.createUser)
-
 // POST /login
 router.post('/login', userController.login)
-
 //POST /logout
 router.get('/logout', userController.logout)
-
 // Post /add
 router.post('/add', userController.addDeck)
-
 // post /getauth
 router.post('/getauth', userController.getAuthenticated)
+// delete /deletedeck
+router.delete('/deletedeck', userController.deleteDeck)
+// put /addcards
+router.put('/addcards', userController.addCards)
 
 router.all('*', async (req, res) => {
     try {

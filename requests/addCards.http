@@ -1,4 +1,4 @@
-POST http://localhost:5000/api/add
+PUT http://localhost:5000/api/addcards
 Content-Type: application/json
 
 {
@@ -6,8 +6,8 @@ Content-Type: application/json
     "name": "new-deck1",
     "cards": [
         {
-            "question": "How much",
-            "answer": "50",
+            "question": "Dog",
+            "answer": "No",
             "tries": [0, 0, 0],
             "lastTry": "2023-06-08T21:15:20-06:00"
         }

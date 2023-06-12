@@ -83,4 +83,52 @@ module.exports = {
           return res.status(401).json({ message: 'Unauthorized' })
         }
       },
+      deleteDeck: async (req, res) => {
+        try {
+          const {_id, name} = req.body
+          const user = await User.findById(_id)
+          let deleteIndex = -1
+          for (let i = 0; i < user.decks.length; i++){
+            if (user.decks[i].name === name){
+              deleteIndex = i
+              break
+            }
+          }
+          if (deleteIndex === -1) {
+            return res.status(401).json({message: `deck does not exist`})
+          } else {
+            let newDecks = user.decks.slice(0, deleteIndex).concat(user.decks.slice(deleteIndex + 1))
+            user.decks = newDecks
+            await user.save()
+            return res.status(200).json({ message: 'deck deleted', user: user})
+          }
+        } catch (error) {
+          return res.status(500).json({ message: 'internal server error'})
+        }
+      },
+      addCards: async (req, res) => {
+        try {
+          const {_id, name, cards} = req.body
+          console.log('id:', _id, '\nname:', name, '\ncards:', cards)
+          const user = await User.findById(_id)
+
+          let updateIndex = -1
+          for (let i = 0; i < user.decks.length; i++){
+            if (user.decks[i].name === name){
+              updateIndex = i
+              break
+            }
+          }
+          if (updateIndex === -1){
+            return res.status(401).json({ message: 'internal server error (cannot find deck in DB)'})
+          } else {
+            user.decks[updateIndex].cards.push(...cards)
+            await user.save()
+            res.status(200).json({ message: 'deck updated', user: user})
+          }
+
+        } catch (error) {
+          return res.status(500).json({ message: 'internal server error', error: `Error: ${error}`})
+        }
+      }
 }

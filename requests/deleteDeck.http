@@ -1,0 +1,7 @@
+DELETE http://localhost:5000/api/deletedeck
+Content-Type: application/json
+
+{
+    "_id": "6484a059700a31b55fa81014",
+    "name": "new-deck1"
+}
