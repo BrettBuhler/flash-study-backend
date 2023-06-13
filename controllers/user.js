@@ -109,7 +109,6 @@ module.exports = {
       addCards: async (req, res) => {
         try {
           const {_id, name, cards} = req.body
-          console.log('id:', _id, '\nname:', name, '\ncards:', cards)
           const user = await User.findById(_id)
 
           let updateIndex = -1
@@ -130,5 +129,30 @@ module.exports = {
         } catch (error) {
           return res.status(500).json({ message: 'internal server error', error: `Error: ${error}`})
         }
-      }
+      },
+      updateDeck: async (req, res) => {
+        try{
+         const {_id, name, cards} = req.body
+         const user = await User.findById(_id)
+
+         let updateIndex = -1
+         for (let i = 0; i < user.decks.length; i++){
+           if (user.decks[i].name === name){
+             updateIndex = i
+             break
+           }
+         }
+
+         if (updateIndex === -1){
+          return res.status(400).json({ message: `Bad request`, error: `Error: No Deck matches ${name}`})
+         } else {
+          user.decks[updateIndex].cards.splice(0, user.decks[updateIndex].cards.length, ...cards)
+          await user.save()
+          return res.status(200).json({ message: 'Deck updated', user: user})
+         }
+
+        } catch (error) {
+          return res.status(500).json({ message: 'internal server error', error: `Error: ${error}`})
+        }
+      } 
 }

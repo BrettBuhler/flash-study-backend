@@ -16,6 +16,9 @@ router.post('/getauth', userController.getAuthenticated)
 router.delete('/deletedeck', userController.deleteDeck)
 // put /addcards
 router.put('/addcards', userController.addCards)
+// put /updatedeck
+router.put('/updatedeck', userController.updateDeck)
+
 
 router.all('*', async (req, res) => {
     try {

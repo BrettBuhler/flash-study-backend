@@ -1,0 +1,21 @@
+PUT http://localhost:5000/api/updatedeck
+Content-Type: application/json
+
+{
+    "_id": "6484a059700a31b55fa81014",
+    "name": "new-deck1",
+    "cards": [
+        {
+            "question": "Dog water",
+            "answer": "yes",
+            "tries": [0, 1, 0],
+            "lastTry": "2023-06-08T21:15:20-06:00"
+        },
+        {
+            "question": "Cat is happy",
+            "answer": "Fourty",
+            "tries": [0, 0, 2],
+            "lastTry": "2023-06-08T21:15:20-06:00"
+        }
+    ]
+}
