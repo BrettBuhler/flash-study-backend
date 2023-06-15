@@ -1,0 +1,8 @@
+POST http://localhost:5000/api/cardsfromtext
+Content-Type: application/json
+
+{
+    "_id": "6484a059700a31b55fa81014",
+    "text": "The south african bull frog weighs between 70 grams and 130 grams. It's mating season is between June and august. It is identified by large yellow spots on its back, and in the winter it hibernates underground",
+    "cost": 100
+}

@@ -1,6 +1,7 @@
 const express = require ('express')
 const router = express.Router()
 const userController = require('../controllers/user.js')
+const openAiController = require('../controllers/openAi.js')
 
 // POST /register
 router.post('/register', userController.createUser)
@@ -18,6 +19,8 @@ router.delete('/deletedeck', userController.deleteDeck)
 router.put('/addcards', userController.addCards)
 // put /updatedeck
 router.put('/updatedeck', userController.updateDeck)
+// post /cardsfromtext
+router.post('/cardsfromtext', openAiController.cardsFromText)
 
 
 router.all('*', async (req, res) => {
