@@ -23,6 +23,9 @@ router.put('/updatedeck', userController.updateDeck)
 router.post('/cardsfromtext', openAiController.cardsFromText)
 // post /cardsfromtextfunction
 router.post('/cardsfromtextfunction', openAiController.cardsFromTextFunction)
+// post /cardsfromai
+router.post('/cardsfromai', openAiController.cardsFromAi)
+router.post('/cardsfromai2', openAiController.cardsFromAi2)
 
 
 router.all('*', async (req, res) => {

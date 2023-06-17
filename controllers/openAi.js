@@ -43,10 +43,10 @@ module.exports = {
             return res.status(500).json({message: 'internal server error', error: error})
         }
     },
-    cardsFromTextFunction: async (rec, res) => {
+    cardsFromTextFunction: async (req, res) => {
         try {
             console.log('cardsFromTextFunction')
-            const {_id, text, cost} = rec.body
+            const {_id, text, cost} = req.body
             const user = await User.findById(_id)
             user.ai_tokens -= cost
             await user.save()
@@ -77,5 +77,97 @@ module.exports = {
             console.log(error)
             return res.status(500).json({message: 'Internal server error', error: error})
         }
+    },
+    cardsFromAi : async (req, res) => {
+        try {
+            console.log('cardsFromAi')
+            const {_id, number, topic, subTopic} = req.body
+            const user = await User.findById(_id)
+            user.ai_tokens -= number * 20
+            await user.save()
+
+            const message = [
+                {role: "system", content: 'You are an expert at making flash cards. You alway return flashcards in the form: [{"question": "some question", "answer": "some answer}]'},
+                {role: 'user', content: 'Write me 2 flashcards about the topic: ancient greece. The flashcards should be about the sub-topic: Athens'},
+                {role: "assistant", content: '[{"question": "What ancient Greek city-state was renowned for its naval power?", "answer": "Athens"},{"question": "What is Athens known for in ancient Greece?", "answer": "Contributions to philosophy, literature, and democracy"}]'},
+                {role: "user", content: `Write me ${number} flashcards about the topic: ${topic}. The flashcards should be about the sub-topic: ${subTopic}`}
+            ]
+
+            
+
+            const openai = new OpenAIApi(
+                new Configuration({ apiKey: process.env.OPEN_AI_KEY })
+            )
+
+            const response = await openai.createChatCompletion({
+                //note* change to gpt-3.5-turbo in August
+                model: "gpt-3.5-turbo-0613",
+                messages: message,
+            })
+            console.log(response.data)
+            console.log(response.data.choices[0])
+            return res.status(200).json({ message: 'success', cards: textConfig2(response.data.choices[0].message.content), user: user })
+
+        } catch (error) {
+            console.error(error)
+            return res.status(500).json({message: "Internal server error", error: error})
+        }
+
+    },
+    cardsFromAi2 : async (req, res) => {
+        try {
+            console.log('cardsFromAi2')
+            const {_id, number, topic, subTopic} = req.body
+            console.log(_id, number, topic,)
+            const user = await User.findById(_id)
+            user.ai_tokens -= number * 20
+            await user.save()
+
+
+            const openai = new OpenAIApi(
+                new Configuration({ apiKey: process.env.OPEN_AI_KEY })
+            )
+
+
+
+            const response = await openai.createChatCompletion({
+                //note* change to gpt-3.5-turbo in August
+                "model": "gpt-3.5-turbo-0613",
+                "messages": [
+                    {
+                        "role": "user",
+                        "content": `Give me ${number} flashcards about the topic: ${topic} and the subtopic ${subTopic}`
+                    },
+                ],
+                "functions": [
+                    {
+                        "name": `generate_n_flashcards`,
+                        "description": `return an array of ${number} flash cards about the topic ${topic}, and about the sub topic ${subTopic}`,
+                        "parameters": {
+                            "topic": {
+                                "type": "string",
+                                "description": "the topic the flashcards should be about"
+                            },
+                            "subTopic": {
+                                "type": "string",
+                                "description": "the subtopic the flashcards should be about"
+                            },
+                            "number": {
+                                "type": "integer",
+                                "description": "The number of flashcards to return"
+                            },
+                            "required": ["topic", "subTopic", "number"]
+                        },
+                    }
+                ]
+            })
+
+            return res.status(200).json({message: 'success', data: response.data})
+
+        } catch (error) {
+            console.error(error)
+            return res.status(500).json({message: "Internal server error", error: error})
+        }
+
     }
 }
