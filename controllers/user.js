@@ -154,5 +154,17 @@ module.exports = {
         } catch (error) {
           return res.status(500).json({ message: 'internal server error', error: `Error: ${error}`})
         }
-      } 
+      },
+      addTokens: async (req, res) => {
+        try {
+          const {_id, number} = req.body
+          const user = await User.findById(_id)
+          user.ai_tokens += number
+          await user.save()
+          return res.status(200).json({ message: `Added ${number} tokens`, user: user})
+        } catch (error) {
+          console.error(error)
+          return res.status(500).json({ message: 'internal server error', error: `Error: ${error}`})
+        }
+      }
 }

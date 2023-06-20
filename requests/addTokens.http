@@ -1,0 +1,7 @@
+POST http://localhost:5000/api/addtokens
+Content-Type: application/json
+
+{
+    "_id": "6484a059700a31b55fa81014",
+    "number": 100000
+}
