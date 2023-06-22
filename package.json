@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
+    "stripe": "^12.9.0",
     "uuid": "^9.0.0"
   }
 }
