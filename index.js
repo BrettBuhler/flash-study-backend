@@ -9,6 +9,8 @@ app.use(express.static('public'))
 const APIRoutes = require('./routes/apiRoutes.js')
 const MAINRoutes = require('./routes/mainRoutes.js')
 const STRIPERoutes = require('./routes/stripeRoutes.js')
+const STRIPEWebHookRoutes = require('./routes/stripeWebHookRoutes.js')
+app.use(STRIPEWebHookRoutes)
 const User = require('./models/userModel.js')
 const frontEndURL = process.env.FRONT_END_URL || 'http://localhost:3000'
 
@@ -28,12 +30,12 @@ connectDB()
 
 //cors for testing from front-end
 app.use(cors({
-    origin: [frontEndURL]
+    origin: [frontEndURL, 'https://flash-study.uc.r.appspot.com']
 }))
 
 app.use('/api', APIRoutes)
-app.use(STRIPERoutes)
 app.use(MAINRoutes)
+app.use(STRIPERoutes)
 
 const port = process.env.PORT || 5000
 try {

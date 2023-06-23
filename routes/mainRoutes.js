@@ -58,4 +58,9 @@ router.get('/edit-deck/add/text', ensureAuth, (req, res) => {
     res.sendFile(path.join(__dirname, '../public', 'index.html'))
 })
 
+router.get('/dashboard/complete', ensureAuth, (req, res) => {
+    // Redirect to a different URL
+    res.redirect('/dashboard');
+})
+
 module.exports = router
