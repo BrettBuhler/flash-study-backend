@@ -1,0 +1,6 @@
+POST http://localhost:5000/api/getuserbyid
+Content-Type: application/json
+
+{
+    "_id": "6491f3ee8e87c6086894b658",
+}

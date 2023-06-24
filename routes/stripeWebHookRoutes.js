@@ -29,7 +29,6 @@ route.post('/webhook', express.raw({type: 'application/json'}), async (request, 
   switch (event.type) {
     case 'payment_intent.succeeded':
       //const paymentIntentSucceeded = event.data.object;
-      console.log('WE ARE HERE')
       console.log('event.data.object.metadata.user_id', event.data.object.metadata.user_id)
       const _id = event.data.object.metadata.user_id
       try {

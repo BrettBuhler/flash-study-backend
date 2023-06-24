@@ -28,6 +28,8 @@ router.post('/cardsfromai', openAiController.cardsFromAi)
 router.post('/cardsfromai2', openAiController.cardsFromAi2)
 // post /addtokens
 router.post('/addtokens', userController.addTokens)
+// post /getuserbyid
+router.post('/getuserbyid', userController.getuserbyid)
 
 
 router.all('*', async (req, res) => {

@@ -166,5 +166,17 @@ module.exports = {
           console.error(error)
           return res.status(500).json({ message: 'internal server error', error: `Error: ${error}`})
         }
+      },
+      getuserbyid: async (req, res) => {
+        try{
+          const { _id } = req.body
+          const user = await User.findById(_id)
+          if (user){
+            return res.status(200).json({ message: 'success', user: user})
+          }
+        } catch (error) {
+          console.error(error)
+          return res.status(500).json({ message: 'internal server error', error: `Error: ${error}` })
+        }
       }
 }
