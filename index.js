@@ -5,7 +5,6 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 const cors = require('cors')
 const app = express()
-app.use(express.static('public'))
 const APIRoutes = require('./routes/apiRoutes.js')
 const MAINRoutes = require('./routes/mainRoutes.js')
 const STRIPERoutes = require('./routes/stripeRoutes.js')
@@ -27,7 +26,7 @@ require('./config/passportConfig')(app)
 app.use(bodyParser.json())
 
 connectDB()
-
+// remove
 //cors for testing from front-end
 app.use(cors({
     origin: [frontEndURL, 'https://flash-study.uc.r.appspot.com']
@@ -36,6 +35,7 @@ app.use(cors({
 app.use('/api', APIRoutes)
 app.use(MAINRoutes)
 app.use(STRIPERoutes)
+app.use(express.static('public'))
 
 const port = process.env.PORT || 5000
 try {

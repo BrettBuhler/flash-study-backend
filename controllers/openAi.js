@@ -1,7 +1,6 @@
 const { Configuration, OpenAIApi} = require('openai')
 const User = require('../models/userModel.js')
-const textConfig = require('../config/textCofig.js')
-const textConfig2 = require('../config/textConfig2.js')
+const textConfig3 = require('../config/textConfig3.js')
 const axios = require('axios')
 
 require('dotenv').config()
@@ -27,7 +26,7 @@ module.exports = {
             const openai = new OpenAIApi(configuration)
             const open_ai_response = await openai.createCompletion({
                 model: "text-davinci-003",
-                prompt: `From the text I give you make my flash cards. Return them in the format [{question: "some question", answer: "some answer"}] This is the text: ${text}`,
+                prompt: `From the text I give you make my flash cards. Make as many flash cards as you can. Return them in the format [{question: "some question", answer: "some answer"}] This is the text: ${text}`,
                 temperature: 0.4,
                 max_tokens: 3500,
                 top_p: 1.0,
@@ -71,7 +70,7 @@ module.exports = {
             })
             console.log(response.data.choices[0].message.content)
 
-            return res.status(200).json({message: 'success', cards: textConfig2(response.data.choices[0].message.content), user: user})
+            return res.status(200).json({message: 'success', cards: textConfig3(response.data.choices[0].message.content), user: user})
 
         } catch (error) {
             console.log(error)
@@ -106,7 +105,7 @@ module.exports = {
             })
             console.log(response.data)
             console.log(response.data.choices[0])
-            return res.status(200).json({ message: 'success', cards: textConfig2(response.data.choices[0].message.content), user: user })
+            return res.status(200).json({ message: 'success', cards: textConfig3(response.data.choices[0].message.content), user: user })
 
         } catch (error) {
             console.error(error)
